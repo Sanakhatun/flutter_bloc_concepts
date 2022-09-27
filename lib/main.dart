@@ -55,9 +55,20 @@ class _MyHomePageState extends State<MyHomePage> {
             const Text(
               'You have pushed the button this many times:',
             ),
-            Text(
-              'COUNTER VALUE: $_counter',
-              style: Theme.of(context).textTheme.headline4,
+            BlocBuilder<CounterCubit, CounterState>(
+              builder: (context, state) {
+                if (state.counterValue > 0) {
+                  return Text(
+                    'POSITIVE NUMBER: ${state.counterValue.toString()}',
+                    style: Theme.of(context).textTheme.headline4,
+                  );
+                } else {
+                  return Text(
+                    'NEGATIVE NUMBER: ${state.counterValue.toString()}',
+                    style: Theme.of(context).textTheme.headline4,
+                  );
+                }
+              },
             ),
             Row(mainAxisAlignment: MainAxisAlignment.spaceAround, children: [
               FloatingActionButton(
