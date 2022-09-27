@@ -34,14 +34,6 @@ class MyHomePage extends StatefulWidget {
 }
 
 class _MyHomePageState extends State<MyHomePage> {
-  int _counter = 0;
-
-  void _incrementCounter() {
-    setState(() {
-      _counter++;
-    });
-  }
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -55,6 +47,7 @@ class _MyHomePageState extends State<MyHomePage> {
             const Text(
               'You have pushed the button this many times:',
             ),
+            //BlocBuilder:Re-builds the UI for every new state coming form the bloc
             BlocBuilder<CounterCubit, CounterState>(
               builder: (context, state) {
                 if (state.counterValue > 0) {
@@ -73,6 +66,7 @@ class _MyHomePageState extends State<MyHomePage> {
             Row(mainAxisAlignment: MainAxisAlignment.spaceAround, children: [
               FloatingActionButton(
                 onPressed: () {
+                  /*BlocProvider: Creates & Provides the only instance of a bloc to the subtree*/
                   BlocProvider.of<CounterCubit>(context).increment();
                 },
                 tooltip: '+',
