@@ -11,7 +11,12 @@ void main() {
   runApp(MyApp());
 }
 
-class MyApp extends StatelessWidget {
+class MyApp extends StatefulWidget {
+  @override
+  State<MyApp> createState() => _MyAppState();
+}
+
+class _MyAppState extends State<MyApp> {
   final CounterCubit _counterCubit = CounterCubit();
 
   @override
@@ -39,5 +44,12 @@ class MyApp extends StatelessWidget {
         ),
       ),
     );
+  }
+
+  @override
+  void dispose() {
+    // TODO: implement dispose
+    _counterCubit.close();
+    super.dispose();
   }
 }
