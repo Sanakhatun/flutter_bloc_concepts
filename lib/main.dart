@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc_concepts/counter_cubit.dart';
+import 'package:flutter_bloc_concepts/home/business_logic/cubits/counter_cubit.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:flutter_bloc_concepts/second_screen.dart';
+import 'package:flutter_bloc_concepts/home/presentation/screens/home_screen.dart';
+
+/*Reference: https://dhruvnakum.xyz/flutter-bloc-a-complete-guide*/
 
 void main() {
   runApp(const MyApp());
@@ -19,105 +21,8 @@ class MyApp extends StatelessWidget {
         theme: ThemeData(
           primarySwatch: Colors.blue,
         ),
-        home: const MyHomePage(title: 'Flutter Demo Home Page'),
+        home: const HomeScreen(title: 'Home Screen'),
       ),
     );
-  }
-}
-
-class MyHomePage extends StatefulWidget {
-  const MyHomePage({Key? key, required this.title}) : super(key: key);
-
-  final String title;
-
-  @override
-  State<MyHomePage> createState() => _MyHomePageState();
-}
-
-class _MyHomePageState extends State<MyHomePage> {
-  ///
-  /// Key difference between BlocBuilder & BlocListener is
-  /// BlocBuilder: This builder function may be called Multiple Times Per State(due to Flutter Engine)
-  /// BlocListener: This listener function is called only once per state(Not including the initial state)
-  ///
-  ///
-  /// BlocBuilder:Re-builds the UI for every new state coming form the bloc
-  ///
-  ///
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-        appBar: AppBar(
-          title: Text(widget.title),
-        ),
-        body: Center(
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: <Widget>[
-              const Text(
-                'You have pushed the button this many times:',
-              ),
-              //
-              BlocConsumer<CounterCubit, CounterState>(
-                listener: (context, state) {
-                  if (state.wasIncremented == true) {
-                    ScaffoldMessenger.of(context).showSnackBar(
-                        SnackBar(content: Text("Increment button pressed")));
-                  } else {
-                    ScaffoldMessenger.of(context).showSnackBar(
-                        SnackBar(content: Text("Decrement button pressed")));
-                  }
-                },
-                builder: (context, state) {
-                  return BlocBuilder<CounterCubit, CounterState>(
-                    builder: (context, state) {
-                      if (state.counterValue > 0) {
-                        return Text(
-                          'POSITIVE NUMBER: ${state.counterValue.toString()}',
-                          style: Theme.of(context).textTheme.headline4,
-                        );
-                      } else {
-                        return Text(
-                          'NEGATIVE NUMBER: ${state.counterValue.toString()}',
-                          style: Theme.of(context).textTheme.headline4,
-                        );
-                      }
-                    },
-                  );
-                },
-              ),
-              Row(mainAxisAlignment: MainAxisAlignment.spaceAround, children: [
-                FloatingActionButton(
-                  heroTag: null,
-                  onPressed: () {
-                    /*BlocProvider: Creates & Provides the only instance of a bloc to the subtree*/
-                    BlocProvider.of<CounterCubit>(context).increment();
-                  },
-                  tooltip: '+',
-                  child: const Icon(Icons.add),
-                ),
-                FloatingActionButton(
-                  heroTag: "btn2",
-                  onPressed: () {
-                    BlocProvider.of<CounterCubit>(context).decrement();
-                  },
-                  tooltip: '-',
-                  child: const Icon(Icons.remove),
-                ),
-              ]),
-              MaterialButton(
-                onPressed: () {
-                  Navigator.of(context).push(MaterialPageRoute(
-                      builder: (_) => BlocProvider.value(
-                            child: SecondScreen(title: "Second Screen"),
-                            value: BlocProvider.of<CounterCubit>(context),
-                          )));
-                },
-                child: Text("Go to Second Screen"),
-                color: Colors.blue,
-              )
-            ],
-          ),
-        ));
   }
 }
