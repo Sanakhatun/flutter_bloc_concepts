@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc_concepts/counter_cubit.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_bloc_concepts/second_screen.dart';
 
 void main() {
   runApp(const MyApp());
@@ -87,6 +88,7 @@ class _MyHomePageState extends State<MyHomePage> {
               ),
               Row(mainAxisAlignment: MainAxisAlignment.spaceAround, children: [
                 FloatingActionButton(
+                  heroTag: null,
                   onPressed: () {
                     /*BlocProvider: Creates & Provides the only instance of a bloc to the subtree*/
                     BlocProvider.of<CounterCubit>(context).increment();
@@ -95,6 +97,7 @@ class _MyHomePageState extends State<MyHomePage> {
                   child: const Icon(Icons.add),
                 ),
                 FloatingActionButton(
+                  heroTag: "btn2",
                   onPressed: () {
                     BlocProvider.of<CounterCubit>(context).decrement();
                   },
@@ -102,6 +105,17 @@ class _MyHomePageState extends State<MyHomePage> {
                   child: const Icon(Icons.remove),
                 ),
               ]),
+              MaterialButton(
+                onPressed: () {
+                  Navigator.of(context).push(MaterialPageRoute(
+                      builder: (_) => BlocProvider.value(
+                            child: SecondScreen(title: "Second Screen"),
+                            value: BlocProvider.of<CounterCubit>(context),
+                          )));
+                },
+                child: Text("Go to Second Screen"),
+                color: Colors.blue,
+              )
             ],
           ),
         ));
