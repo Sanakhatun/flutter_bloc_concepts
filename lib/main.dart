@@ -34,6 +34,11 @@ class MyHomePage extends StatefulWidget {
 }
 
 class _MyHomePageState extends State<MyHomePage> {
+  ///
+  /// Key difference between BlocBuilder & BlocListener is
+  /// BlocBuilder: This builder function may be called Multiple Times Per State(due to Flutter Engine)
+  /// BlocListener: This listener function is called only once per state(Not including the initial state)
+  ///
   @override
   Widget build(BuildContext context) {
     return Scaffold(
