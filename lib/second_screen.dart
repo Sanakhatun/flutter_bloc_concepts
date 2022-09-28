@@ -21,6 +21,7 @@ class _SecondScreenState extends State<SecondScreen> {
   Widget build(BuildContext context) {
     return SafeArea(
       child: Scaffold(
+        appBar: AppBar(title: Text(widget.title)),
         body: Center(
           child: BlocBuilder<CounterCubit, CounterState>(
               builder: (context, state) {
