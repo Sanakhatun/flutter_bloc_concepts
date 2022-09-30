@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:flutter_bloc_concepts/home/business_logic/cubits/counter_state.dart';
-import 'package:flutter_bloc_concepts/home/business_logic/cubits/counter_cubit.dart';
-import 'package:flutter_bloc_concepts/home/presentation/screens/second_screen.dart';
+import 'package:flutter_bloc_concepts/features/home/business_logic/cubits/counter_state.dart';
+import 'package:flutter_bloc_concepts/features/home/business_logic/cubits/counter_cubit.dart';
+import 'package:flutter_bloc_concepts/features/home/presentation/screens/second_screen.dart';
 
 /**
  * @Author: Sanakhatun Shaikh

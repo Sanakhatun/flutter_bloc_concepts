@@ -1,9 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:flutter_bloc_concepts/home/business_logic/cubits/counter_cubit.dart';
-import 'package:flutter_bloc_concepts/home/presentation/screens/home_screen.dart';
-import 'package:flutter_bloc_concepts/home/presentation/screens/second_screen.dart';
-import 'package:flutter_bloc_concepts/home/presentation/screens/third_screen.dart';
+import 'package:flutter_bloc_concepts/constants/routes.dart';
+import 'package:flutter_bloc_concepts/features/home/business_logic/cubits/counter_cubit.dart';
+import 'package:flutter_bloc_concepts/features/home/presentation/screens/home_screen.dart';
+import 'package:flutter_bloc_concepts/features/home/presentation/screens/second_screen.dart';
+import 'package:flutter_bloc_concepts/features/home/presentation/screens/third_screen.dart';
 
 /**
  * @Author: Sanakhatun Shaikh
@@ -14,7 +15,7 @@ class AppRoutes {
 
   Route onGenerateRoute(RouteSettings settings) {
     switch (settings.name) {
-      case '/':
+      case Routes.HOME:
         return MaterialPageRoute(
           builder: (_) => BlocProvider.value(
             value: _counterCubit,
@@ -23,7 +24,7 @@ class AppRoutes {
             ),
           ),
         );
-      case '/second':
+      case Routes.SECOND:
         return MaterialPageRoute(
           builder: (_) => BlocProvider.value(
             value: _counterCubit,
@@ -32,7 +33,7 @@ class AppRoutes {
             ),
           ),
         );
-      case '/third':
+      case Routes.THIRD:
         return MaterialPageRoute(
           builder: (_) => BlocProvider.value(
             value: _counterCubit,

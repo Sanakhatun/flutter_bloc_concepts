@@ -1,8 +1,8 @@
 import 'package:connectivity_plus/connectivity_plus.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc_concepts/home/business_logic/cubits/counter_cubit.dart';
+import 'package:flutter_bloc_concepts/features/home/business_logic/cubits/counter_cubit.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:flutter_bloc_concepts/home/business_logic/cubits/internet_cubit.dart';
+import 'package:flutter_bloc_concepts/features/home/business_logic/cubits/internet_cubit.dart';
 import 'package:flutter_bloc_concepts/routings/app_routes.dart';
 
 /*Reference: https://dhruvnakum.xyz/flutter-bloc-a-complete-guide*/
