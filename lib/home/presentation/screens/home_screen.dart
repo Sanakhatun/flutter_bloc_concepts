@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_bloc_concepts/home/business_logic/cubits/counter_state.dart';
 import 'package:flutter_bloc_concepts/home/business_logic/cubits/counter_cubit.dart';
+import 'package:flutter_bloc_concepts/home/business_logic/cubits/internet_cubit.dart';
+import 'package:flutter_bloc_concepts/home/constants/enums.dart';
 import 'package:flutter_bloc_concepts/home/presentation/screens/second_screen.dart';
 
 /**
@@ -40,77 +42,113 @@ class _HomeScreenState extends State<HomeScreen> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-        appBar: AppBar(
-          title: Text(widget.title),
-        ),
-        body: Center(
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: <Widget>[
-              const Text(
-                'You have pushed the button this many times:',
-              ),
-              //
-              BlocConsumer<CounterCubit, CounterState>(
-                listener: (context, state) {
-                  if (state.wasIncremented == true) {
-                    ScaffoldMessenger.of(context).showSnackBar(
-                        SnackBar(content: Text("Increment button pressed")));
-                  } else {
-                    ScaffoldMessenger.of(context).showSnackBar(
-                        SnackBar(content: Text("Decrement button pressed")));
-                  }
-                },
-                builder: (context, state) {
-                  return BlocBuilder<CounterCubit, CounterState>(
-                    builder: (context, state) {
-                      if (state.counterValue > 0) {
-                        return Text(
-                          'POSITIVE NUMBER: ${state.counterValue.toString()}',
-                          style: Theme.of(context).textTheme.headline4,
-                        );
-                      } else {
-                        return Text(
-                          'NEGATIVE NUMBER: ${state.counterValue.toString()}',
-                          style: Theme.of(context).textTheme.headline4,
-                        );
-                      }
-                    },
-                  );
-                },
-              ),
-              Row(mainAxisAlignment: MainAxisAlignment.spaceAround, children: [
-                FloatingActionButton(
-                  heroTag: null,
-                  onPressed: () {
-                    /*BlocProvider: Creates & Provides the only instance of a bloc to the subtree*/
-                    BlocProvider.of<CounterCubit>(context).increment();
-                  },
-                  tooltip: '+',
-                  child: const Icon(Icons.add),
-                ),
-                FloatingActionButton(
-                  heroTag: "btn2",
-                  onPressed: () {
-                    BlocProvider.of<CounterCubit>(context).decrement();
-                  },
-                  tooltip: '-',
-                  child: const Icon(Icons.remove),
-                ),
-              ]),
-              MaterialButton(
-                onPressed: () {
-                  Navigator.of(context).pushNamed("/second");
-                },
-                child: Text(
-                  "Go to Second Screen",
-                  style: TextStyle(color: Colors.white),
-                ),
-                color: Colors.blue,
-              )
-            ],
+    return BlocListener<InternetCubit, InternetState>(
+      listener: (context, state) {
+        if (state is InternetConnected &&
+            state.connectionType == ConnectionType.Wifi) {
+          BlocProvider.of<CounterCubit>(context).increment();
+        } else if (state is InternetConnected &&
+            state.connectionType == ConnectionType.Mobile) {
+          BlocProvider.of<CounterCubit>(context).decrement();
+        }
+      },
+      child: Scaffold(
+          appBar: AppBar(
+            title: Text(widget.title),
           ),
-        ));
+          body: Center(
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: <Widget>[
+                BlocBuilder<InternetCubit, InternetState>(
+                  builder: (context, state) {
+                    if (state is InternetConnected &&
+                        state.connectionType == ConnectionType.Wifi) {
+                      return Text(
+                        '${state.connectionType}',
+                        style: TextStyle(color: Colors.blue),
+                      );
+                    } else if (state is InternetConnected &&
+                        state.connectionType == ConnectionType.Mobile) {
+                      return Text(
+                        '${state.connectionType}',
+                        style: Theme.of(context).textTheme.headline4,
+                      );
+                    } else if (state is InternetDisconnected) {
+                      return Text(
+                        'Disconnected',
+                        style: Theme.of(context).textTheme.headline4,
+                      );
+                    } else {
+                      return Text(
+                        'Initial State',
+                        style: Theme.of(context).textTheme.headline4,
+                      );
+                    }
+                  },
+                ),
+                BlocConsumer<CounterCubit, CounterState>(
+                  listener: (context, state) {
+                    if (state.wasIncremented == true) {
+                      ScaffoldMessenger.of(context).showSnackBar(
+                          SnackBar(content: Text("Increment button pressed")));
+                    } else {
+                      ScaffoldMessenger.of(context).showSnackBar(
+                          SnackBar(content: Text("Decrement button pressed")));
+                    }
+                  },
+                  builder: (context, state) {
+                    return BlocBuilder<CounterCubit, CounterState>(
+                      builder: (context, state) {
+                        if (state.counterValue > 0) {
+                          return Text(
+                            'POSITIVE NUMBER: ${state.counterValue.toString()}',
+                            style: Theme.of(context).textTheme.headline4,
+                          );
+                        } else {
+                          return Text(
+                            'NEGATIVE NUMBER: ${state.counterValue.toString()}',
+                            style: Theme.of(context).textTheme.headline4,
+                          );
+                        }
+                      },
+                    );
+                  },
+                ),
+                Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceAround,
+                    children: [
+                      FloatingActionButton(
+                        heroTag: null,
+                        onPressed: () {
+                          /*BlocProvider: Creates & Provides the only instance of a bloc to the subtree*/
+                          BlocProvider.of<CounterCubit>(context).increment();
+                        },
+                        tooltip: '+',
+                        child: const Icon(Icons.add),
+                      ),
+                      FloatingActionButton(
+                        heroTag: "btn2",
+                        onPressed: () {
+                          BlocProvider.of<CounterCubit>(context).decrement();
+                        },
+                        tooltip: '-',
+                        child: const Icon(Icons.remove),
+                      ),
+                    ]),
+                MaterialButton(
+                  onPressed: () {
+                    Navigator.of(context).pushNamed("/second");
+                  },
+                  child: Text(
+                    "Go to Second Screen",
+                    style: TextStyle(color: Colors.white),
+                  ),
+                  color: Colors.blue,
+                )
+              ],
+            ),
+          )),
+    );
   }
 }
