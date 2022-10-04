@@ -36,6 +36,17 @@ dependencies:
   cupertino_icons: ^1.0.2
   flutter_bloc: ^8.1.1
   connectivity_plus: ^2.3.7
+  equatable: ^2.0.5
+  retrofit: ^3.0.1+1
+
+  # Automatically generate code for converting to and from JSON by annotating Dart classes.
+  json_serializable: ^6.4.1
+
+  # retrofit generator is an dio client generator using source_gen and inspired by Chopper and Retrofit.
+  retrofit_generator: ^4.1.0+1
+
+  # The build_runner package provides general-purpose commands for generating files
+  build_runner: ^2.2.1
 
 dev_dependencies:
   flutter_test:

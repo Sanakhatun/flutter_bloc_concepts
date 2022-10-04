@@ -3,9 +3,11 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc_concepts/features/home/business_logic/cubits/counter_cubit.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_bloc_concepts/features/home/business_logic/cubits/internet_cubit.dart';
+import 'package:flutter_bloc_concepts/features/user/presentation/UserScreen.dart';
 import 'package:flutter_bloc_concepts/routings/app_routes.dart';
 
-/*Reference: https://dhruvnakum.xyz/flutter-bloc-a-complete-guide*/
+import 'features/user/business_logic/user_bloc.dart';
+
 
 void main() {
   runApp(MyApp());
@@ -22,7 +24,7 @@ class MyApp extends StatefulWidget {
 class _MyAppState extends State<MyApp> {
   @override
   Widget build(BuildContext context) {
-    return MultiBlocProvider(
+    return /*MultiBlocProvider(
       providers: [
         BlocProvider<CounterCubit>(
           create: (context) => CounterCubit(),
@@ -32,13 +34,19 @@ class _MyAppState extends State<MyApp> {
               InternetCubit(connectivity: widget._connectivity),
         ),
       ],
-      child: MaterialApp(
-        title: 'Flutter Demo',
-        onGenerateRoute: widget._appRoutes.onGenerateRoute,
-        theme: ThemeData(
-          primarySwatch: Colors.blue,
-        ),
+      child:*/
+        MaterialApp(
+      title: 'Flutter Demo',
+      // onGenerateRoute: widget._appRoutes.onGenerateRoute,
+      home: BlocProvider(
+        create: (context) => UserBloc(),
+        child: UserScreen(),
       ),
+      theme: ThemeData(
+        primarySwatch: Colors.blue,
+      ),
+      debugShowCheckedModeBanner: false,
     );
+    // );
   }
 }
