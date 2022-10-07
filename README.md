@@ -2,15 +2,4 @@
 
 Implemenattion of BLoC Concepts
 
-## Getting Started
-
-This project is a starting point for a Flutter application.
-
-A few resources to get you started if this is your first Flutter project:
-
-- [Lab: Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://docs.flutter.dev/cookbook)
-
-For help getting started with Flutter development, view the
-[online documentation](https://docs.flutter.dev/), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+![bloc_flutter](https://user-images.githubusercontent.com/46291836/194097221-04869fc5-04a0-413a-ac80-8b0117785832.gif)
