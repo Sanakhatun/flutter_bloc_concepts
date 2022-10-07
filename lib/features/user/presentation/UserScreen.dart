@@ -4,8 +4,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_bloc_concepts/features/user/business_logic/user_bloc.dart';
 import 'package:flutter_bloc_concepts/features/user/business_logic/user_state.dart';
-import 'package:flutter_bloc_concepts/features/user/data/models/api.dart';
-import 'package:logging/logging.dart';
 
 /**
  * @Author: Sanakhatun Shaikh

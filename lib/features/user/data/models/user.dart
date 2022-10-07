@@ -19,22 +19,6 @@ part 'user.g.dart';
 ///
 
 @JsonSerializable()
-class UserResponse extends Equatable {
-  final List<User> usersList;
-
-  const UserResponse(this.usersList);
-
-  @override
-  // TODO: implement props
-  List<Object?> get props => [usersList];
-
-  factory UserResponse.fromJson(Map<String, dynamic> json) =>
-      _$UserResponseFromJson(json);
-
-  Map<String, dynamic> toJson() => _$UserResponseToJson(this);
-}
-
-@JsonSerializable()
 class User extends Equatable {
   @JsonKey(name: 'id')
   final String id;

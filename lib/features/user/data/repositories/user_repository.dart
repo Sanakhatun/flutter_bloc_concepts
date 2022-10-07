@@ -24,6 +24,8 @@ class UserRepository extends UserDataProvider {
   @override
   Future<List<User>> getUsers() async {
     final String rawUserResponse = await _userAPIClient.getUsers();
+    /*For Raw data to Map Conversion*/
+    /* User.fromJson(jsonDecode(rawUserResponse)); */
     List<User> userList = (jsonDecode(rawUserResponse) as List)
         .map((i) => User.fromJson(i))
         .toList();
